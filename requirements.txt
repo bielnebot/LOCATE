@@ -1,0 +1,35 @@
+shapely --no-binary shapely
+cachetools>=1.0.0
+cgen
+coverage
+mpi4py>=3.0.1
+# mpich>=3.2.1
+jupyter
+matplotlib>=2.0.2
+netcdf4>=1.1.9
+numpy>=1.9.1
+progressbar2
+py>=1.4.27
+pymbolic
+python-dateutil
+scipy>=0.16.0
+six >=1.10.0
+xarray>=0.10.8
+cftime>=1.3.1
+dask>=2.0
+pytest
+nbval
+scikit-learn
+scikit-image
+pykdtree
+dask[array]
+psutil
+wheel
+# cartopy -> download and install manually
+opencv-python
+cmocean
+pandas==1.3.5 #minimum preferable version
+openpyxl
+xlrd
+motuclient==1.8.4 #must use 1.8.4 for cmems download to funciton 
+python-dotenv
