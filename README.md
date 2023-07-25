@@ -17,7 +17,7 @@ sudo apt install ffmpeg flake8 git build-essential gcc_linux-64 python3-mpi4py m
 
 To work with python it is recommended to make separate work environments for each project. 
 ``` 
-git clone https://github.com/JoseAlsina2/LOCATE
+git clone https://github.com/UPC-LOCATE/LOCATE
 cd LOCATE
 python3.8 -m venv venv
 source venv/bin/activate
@@ -53,15 +53,28 @@ python setup.py install
 
 ### Method 2: Setting up LOCATE for Oceanparcels users
 
-If you already are an Oceanparcels user and ahve installed Oceanparcels following instructions in https://oceanparcels.org/ or https://github.com/OceanParcels/parcels. We recommend installing Oceanparcels with dependencies using *.yml files as in  
+For users that are already working with Oceanparcels and have already installed Oceanparcels (for example following instructions in [oceanparcels.org](https://oceanparcels.org/) ) LOCATE tolls can be installed within the Oceanparcels environment.
+
+Activate your parcels environment and then download LOCATE from github and install requirement
+
+``` 
+git clone https://github.com/UPC-LOCATE/LOCATE
+cd LOCATE
+pip install -r requirements.txt
+```
+
+## Code organization 
+
+## Coastal Hydrodynamic information
 
 ## Execute
 
 There are three main scripts in the project:
-- data download: `DownloadLOCATE_Data.py`
-- data preparation: `UPC_resample_datasets_ibi.py` 
+- data download: `Download_data.py`
+- data preparation (needed when using opendap data from Puertos del Estado: `UPC_resample_datasets_ibi.py` 
 - execution of simulations and visualization: `UPC_main_simulation.py`
 
 There is a configuration file where variables and paths are pre-defined: `UPC_config.py`
-In order to downlowd the data from CMEMS you need your own credentials. User and password should be in environment variables as **CMEMS_USER** and **CMEMS_PASSWD** (or in an .env file in root folder).
+
+Please note that in order to downlowd the data from CMEMS you need your own credentials. User and password should be in environment variables as **CMEMS_USER** and **CMEMS_PASSWD** (or in an .env file in root folder).
 
