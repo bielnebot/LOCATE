@@ -31,5 +31,5 @@ cmocean
 pandas==1.3.5 #minimum preferable version
 openpyxl
 xlrd
-motuclient==1.8.4 #must use 1.8.4 for cmems download to funciton 
+motuclient==1.8.4 #must use 1.8.4 for CMEMS download to function 
 python-dotenv
