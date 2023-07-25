@@ -5,7 +5,7 @@ Piece of numerical tools developed within LOCATE ESA-funded project to build sim
 ![Particles trajectories generated with LOCATE project](plots/sample_simulation/sample_simulation.jpg)
 
 ## SETUP
-Setup for linux systems. Test.
+Setup for linux systems. TEST.
 
 ### Method 1: Setting up from scratch
 
