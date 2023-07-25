@@ -1,8 +1,8 @@
 # LOCATE
 
-Piece of numerical tools developed within LOCATE ESA-funded project to build simulations of plastic particles dispersion in nearshore water. Tools are based in oceanparcels.org
+Piece of numerical tools developed within LOCATE ESA-funded project to build simulations of plastic particles dispersion in nearshore water. Tools are based in [oceanparcels.org](https://oceanparcels.org/)
 
-![Particles trajectories generated with LOCATE project](plots/sample_simulation/sample_simulation.jpg)
+![Particles trajectories generated with LOCATE project](plots/sample_simulation/sample_simulation_animation.mp4)
 
 ## SETUP
 Setup for linux systems.
