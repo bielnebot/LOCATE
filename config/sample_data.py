@@ -23,18 +23,18 @@ download_regional = True
 download_coastal = True
 download_port = True
 download_waves = True
-download_init = "2017/3/5"
-download_end = "2017/3/7"
+download_init = "2023/3/5"
+download_end = "2023/3/7"
 
 
 # simulation variables
-rewrite = False                             # creates a new output file (True, requires hydrodynamic data files), or reads existing file (False)
+rewrite = True                              # creates a new output file (True, requires hydrodynamic data files), or reads existing file (False)
 nested_domain = True                        # True for nested data (coastal and harbour), False for regional data only
 
-sim_init = "2017/3/5"                       # simulation start date
+sim_init = "2023/3/5"                       # simulation start date
 sim_init_time = "00:00:00"                  # simulation start time
-sim_end = "2017/3/7"                        # simulation end date
-sim_end_time = "08:00:00"                   # simulation end time
+sim_end = "2023/3/7"                        # simulation end date
+sim_end_time = "23:00:00"                   # simulation end time
 
 
 # If reading data from an external Excel spreadsheet
@@ -42,7 +42,7 @@ samples_filename = 'Data_sampler/' + sim_name + '.xlsx'
 rows_to_header = 2                          # row position of headers in excel (0-indexed)
 sheets_to_load = ['Llobregat','Besos']      # delimit sheet names with a comma
 datetime_col_name = 'Sampling date'         # Specify the name of the datetime column
-particle_col_name = 'Particles'         # Specify the name of the column with particle numbers to simulate
+particle_col_name = 'Particles'             # Specify the name of the column with particle numbers to simulate
 particle_frequency = 'hourly'               # 'hourly', 'daily', or None (for one-time release e.g drifter)
 coords = [[41.29285, 2.14149], [41.417671, 2.235227]]
 
