@@ -140,6 +140,7 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
     
             # hourly or daily particle release - uses ParticleXLSsampler function 
             if cfg.particle_frequency == 'hourly' or cfg.particle_frequency == 'daily':
+                # Particles are loaded from the excel spreadsheet
                 sampler = lib.ParticleXLSSampler(cfg.samples_filename, cfg.sheets_to_load, cfg.coords, cfg.rows_to_header, cfg.particle_proportion, init_time, final_time)
                 pset = ParticleSet.from_list(fieldset=fieldset,
                                              pclass=PlasticParticle,
@@ -148,7 +149,7 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
                                              depth=None,
                                              time=sampler.time)
                 
-            # one time particle releases (e.g for drifters) - uses ParticleXLScreator function
+            # one time particle releases (e.g for drifters) - uses ParticleXLScreator function - must specify lats and lons in the excel if that is the case
             elif cfg.particle_frequency == None:
                 # Lats and lons are loaded from the excel spreadsheet
                 creator = lib.ParticleXLSCreator(cfg.samples_filename, cfg.sheets_to_load, cfg.rows_to_header, cfg.particle_proportion, init_time, final_time)
@@ -159,8 +160,10 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
                                              depth=None,
                                              time=creator.time)
     
-
+        # if using the distance to shore kernel or beaching. Ensure the PlasticParticles variables are activated
         # kernel = pset.Kernel(AdvectionRK4) + pset.Kernel(DiffusionUniformKh_custom) + pset.Kernel(StokesDrag) + pset.Kernel(beaching_velocity) + pset.Kernel(Ageing) + pset.Kernel(distance_trajectory) + pset.Kernel(distance_shore)
+        
+        # if using the current velocity kernel for beaching 
         kernel = pset.Kernel(AdvectionRK4) + pset.Kernel(DiffusionUniformKh_custom) + pset.Kernel(StokesDrag) + pset.Kernel(beaching_velocity) + pset.Kernel(Ageing)
         
         output_file = pset.ParticleFile(name=cfg.output_filename, outputdt=timedelta(hours=1))
@@ -179,17 +182,14 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
        
 
     # PLOTS
-    logger.info(f"Reading simulation data results from: {cfg.output_filename}")
-    
+    logger.info(f"Reading simulation data results from: {cfg.output_filename}")    
     
     data = xr.open_dataset(cfg.output_filename)
-    
-    
+        
     domain = {'N': cfg.domain_N, 'S': cfg.domain_S, 'E': cfg.domain_E, 'W': cfg.domain_W}
-    # Tipo terreno
+    # Terrain types, options for standard are terrain, terrain-background, toner, watercolor
     assert terrain_type in ['standard', 'satellite', None], "Terrain type must be 'standard', 'satellite' or None"
     if terrain_type=='standard':
-        # options for standard are terrain, terrain-background, toner, watercolor
         terrain = cimgt.Stamen('terrain-background') # max_zoom=10
         terrain_zoom = 10 
     elif terrain_type=='satellite':
@@ -218,7 +218,6 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
     
     # Particle concentration density map
     if cfg.plot_concentration_heatmap == True:
-        # Plot concentration histograms
         lib.plot_concentration_heatmap(data, domain=domain, terrain=terrain, sim_steps=(60/cfg.sim_dt)*24)
 
 
