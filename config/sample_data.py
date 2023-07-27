@@ -88,10 +88,10 @@ regional_file_search_string = 'MyO-IBI_hm_BCN*_HC01.nc'
 wave_regional_file_search_string = 'WAV-IBI_hm*_HC01.nc'
 
 # For distance to shore kernel for beaching
-dist_path = ''
-port_dist = ''
-coastal_dist = ''
-regional_dist = ''
+dist_path = 'nodes'
+port_dist = 'harbour_nodes.nc'
+coastal_dist = 'coastal_nodes.nc'
+regional_dist = 'regional_nodes.nc'
 
 
 
