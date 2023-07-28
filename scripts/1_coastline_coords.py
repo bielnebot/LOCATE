@@ -6,7 +6,7 @@ Previous processing and conversion from high resolution coastline data as shapef
 
 If the original data is in the form of a linestring, a polygon should be created in QGIS by adding an extra point(s), exporting data as a polygon in csv format. 
 
-These data are not included in GitHub. The original shapefiles can be downloaded from https://agricultura.gencat.cat/ca/serveis/cartografia-sig/bases-cartografiques/cartografia-referencia/linia-costa/ in .shp format.
+The original shapefiles can be downloaded from https://agricultura.gencat.cat/ca/serveis/cartografia-sig/bases-cartografiques/cartografia-referencia/linia-costa/ in .shp format.
 
 Csv data are processed and saved as a pickle for later use.
 """
@@ -25,11 +25,8 @@ path_pickles = '../pickles/coords/'
 os.makedirs(path_pickles, exist_ok=True)
 
 
-# these data are not included in GitHub
+# coastline polygon
 df_poly = pd.read_csv ('../coastline/coastline_polygon.csv')
-
-
-df_poly = pd.read_csv ('../coastline/cat_coastline_poly.csv')
 
 
 # data is the csv is in one cell. This may vary depending on how the csv file is created
