@@ -86,7 +86,7 @@ There are several options for plotting outcomes that can be specified in the con
 
 ### Prepare distance to shore data
 
-Scripts have been provided in the `scripts` folder to prepare the data step-by-step to use the beaching kernel based on the distance to shore parameter. For this, it is necessary to have (if possible) high-resolution shoreline data converted to a polygon in CSV format. In this case, the data were downloaded as a shapefile (not included) and processed using the open-source QGIS software to export as a CSV file (included).
+Scripts have been provided in the `scripts` folder to prepare the data step-by-step to use the beaching kernel based on the distance to shore parameter. For this, it is necessary to have (if possible) high-resolution shoreline data converted to a polygon in CSV format. In this case, the data were downloaded as a shapefile (not included) and processed using the open-source QGIS software to export as a CSV file (not included).
 
 `1_coastline_coords.py` reads and saves the coastline data.
 
