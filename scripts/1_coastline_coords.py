@@ -4,11 +4,9 @@
 @author: Ivan Hernandez
 Previous processing and conversion from high resolution coastline data as shapefile to csv format is assumed, using QGIS sofwtware or alternative, editing to the required study domain coordinates. 
 
+If the original data is in the form of a linestring, a polygon should be created in QGIS by adding an extra point(s), exporting data as a polygon in csv format. 
 
-If the original data is in the form of a linestring, a polygon should be created in QGIS by adding an extra point(s), exporting data as a polygon in csv format.
-
-
-If the original data is in the form of a linestring, a polygon should be created in QGIS by adding an extra point(s), exporting data as a polygon in csv format. These data are not included in GitHub. The original shapefiles can be downloaded from https://agricultura.gencat.cat/ca/serveis/cartografia-sig/bases-cartografiques/cartografia-referencia/linia-costa/ in .shp format.
+These data are not included in GitHub. The original shapefiles can be downloaded from https://agricultura.gencat.cat/ca/serveis/cartografia-sig/bases-cartografiques/cartografia-referencia/linia-costa/ in .shp format.
 
 Csv data are processed and saved as a pickle for later use.
 """
