@@ -5,12 +5,17 @@
 
 Read the pickle slices
 
-Reduce the number of rows to one per node by groupìng by minimum distance.
+Reduce the number of rows to one per node by groupìng by minimum distance and save to a pickle
 
-Note: the regional domain did not require a for loop.
+To conserve memory and prevent the kernel from restarting after a few iterations the df is deleted at each iteration
 """
 
 import pandas as pd
+import os
+
+# creates folder for pickles if it does not exist
+path_pickles = '../pickles/nodes/distance_min/slices'
+os.makedirs(path_pickles, exist_ok=True)
 
 
 # coastal
@@ -28,10 +33,11 @@ for j in range(61): # this range will depend on the number of nodes
     df_min.to_pickle('../pickles/nodes/distance_min/slices/harbour_distance_min_' + str(j) + '.pkl')
     del(df)
     del(df_min)
-    
-# if the regional domain has a large number of nodes, do a loop as above
-df = pd.read_pickle('../pickles/nodes/distance/regional_distance.pkl')
-df_min = df.groupby(['obs'], as_index=False)['distance'].min()
-df_min.to_pickle('../pickles/nodes/distance_min/regional_distance_min.pkl')
-
-
+        
+# regional
+for k in range(3): # this range will depend on the number of nodes    
+    df = pd.read_pickle('../pickles/nodes/distance/regional_distance_' + str(k) + '.pkl')
+    df_min = df.groupby(['obs'], as_index=False)['distance'].min()
+    df_min.to_pickle('../pickles/nodes/distance_min/slices/regional_distance_min_' + str(k) + '.pkl')
+    del(df)
+    del(df_min)

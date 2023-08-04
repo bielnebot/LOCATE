@@ -7,7 +7,7 @@ Concatenate df's for coastal and harbour
 
 These df's only have the obs and distance column
 
-If the regional data had to be in a loop then do a loop in the same way
+The number of dfs per domain will depend on the size of the domain and how many nodes there were / files were generated in previous steps
 """
 
 import pandas as pd
@@ -123,6 +123,11 @@ df_c_33 = pd.read_pickle('../pickles/nodes/distance_min/slices/coastal_distance_
 df_c_34 = pd.read_pickle('../pickles/nodes/distance_min/slices/coastal_distance_min_34.pkl')
 df_c_35 = pd.read_pickle('../pickles/nodes/distance_min/slices/coastal_distance_min_35.pkl')
 
+# regional files
+df_r_0 = pd.read_pickle('../pickles/nodes/distance_min/slices/regional_distance_min_0.pkl') 
+df_r_1 = pd.read_pickle('../pickles/nodes/distance_min/slices/regional_distance_min_1.pkl') 
+df_r_2 = pd.read_pickle('../pickles/nodes/distance_min/slices/regional_distance_min_2.pkl')
+
 
 # prepare dataframes for concatenation
 data_harbour = [df_h_0, 
@@ -227,9 +232,18 @@ data_coastal = [df_c_0,
                 df_c_35
                 ]
 
+# prepare dataframes for concatenation
+data_regional = [df_r_0, 
+                df_r_1, 
+                df_r_2
+                ]
+
+
 # concatenate the dataframes
 df_h = pd.concat(data_harbour, ignore_index=True, sort=False)
 df_c = pd.concat(data_coastal, ignore_index=True, sort=False)
+df_r = pd.concat(data_regional, ignore_index=True, sort=False)
 
 df_h.to_pickle('../pickles/nodes/distance_min/harbour_distance_min.pkl')
 df_c.to_pickle('../pickles/nodes/distance_min/coastal_distance_min.pkl')
+df_r.to_pickle('../pickles/nodes/distance_min/regional_distance_min.pkl')

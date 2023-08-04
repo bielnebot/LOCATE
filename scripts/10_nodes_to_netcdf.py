@@ -12,6 +12,8 @@ The distance data is added to the u variable only.
 The v variable has 0 values.
 
 Netcdf files must be deleted if this process is to be repeated, files cannot be replaced.
+
+The files are created for same datetime in the config.
 """
 import netCDF4 as nc
 import numpy as np
@@ -20,11 +22,17 @@ import datetime as dt
 from datetime import date
 from datetime import timedelta
 from netCDF4 import date2num,num2date
+import os
 
 # import file from another folder
 import sys
 sys.path.append('../')
 from config import sample_data as cfg
+
+
+# creates folder for pickles if it does not exist
+path_nodes = '../hydrodynamic_data/nodes/'
+os.makedirs(path_nodes, exist_ok=True)
 
 # Simulation init and end times
 sim_split_i = cfg.sim_init.split("/")
@@ -118,9 +126,9 @@ depth_list_c = [0]
 depth_list_r = [0]
 
 # specify path for netcdf diles
-ncfile_h = nc.Dataset('../hydrodynamic_data/nodes/harbour_nodes.nc', mode='w', format='NETCDF4')
-ncfile_c = nc.Dataset('../hydrodynamic_data/nodes/coastal_nodes.nc', mode='w', format='NETCDF4')
-ncfile_r = nc.Dataset('../hydrodynamic_data/nodes/regional_nodes.nc', mode='w', format='NETCDF4')
+ncfile_h = nc.Dataset(path_nodes + 'harbour_nodes.nc', mode='w', format='NETCDF4')
+ncfile_c = nc.Dataset(path_nodes + 'coastal_nodes.nc', mode='w', format='NETCDF4')
+ncfile_r = nc.Dataset(path_nodes + 'regional_nodes.nc', mode='w', format='NETCDF4')
 
 # create dimensions
 lat_dim_h = ncfile_h.createDimension('latitude', len(lat_list_h)) # latitude axis

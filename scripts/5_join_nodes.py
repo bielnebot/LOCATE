@@ -15,14 +15,18 @@ These columns may vary depending on the structure of the previous files if any c
 
 Merge dfs on a key, resulting in a one to many merge (df_cat copies itself for each row of df_r, df_h and df_c).
 
-In this case there were over 61000 nodes for the harbour domain, over 36,000 for the coastal domain.
+In this case there were over 61000 nodes for the harbour domain, over 36,000 for the coastal domain, and 2006 nodes for the regional domain.
 
 Delete the loaded node variables after each step to prevent the kernel from crashing and restarting.
 
-Note: the regional domain did not require a for loop.
 """
 
 import pandas as pd
+import os
+
+# creates folder for pickles if it does not exist
+path_pickles = '../pickles/nodes/merged_coords_slices/'
+os.makedirs(path_pickles, exist_ok=True)
 
 # read the pickles
 df_h = pd.read_pickle('../pickles/nodes/coords/harbour_nodes_coords.pkl')
@@ -50,6 +54,9 @@ for j in range(61): # this range will depend on the number of nodes
     df_harbour.to_pickle('../pickles/nodes/merged_coords_slices/harbour_coords_combined_' + str(j) + '.pkl')        
     del(df_harbour)
 
-# if the regional domain has a large number of nodes, do a loop as above
-df_regional = df_r.assign(key=1).merge(df_cat.assign(key=1), on='key').drop('key',axis=1)
-df_regional.to_pickle('../pickles/nodes/merged_coords_slices/regional_coords_combined.pkl')  
+# regional files
+for k in range(3): # this range will depend on the number of nodes
+    df_regional = df_r.iloc[(k*1000):((k*1000)+1000),[0,3,4]]
+    df_regional = df_regional.assign(key=1).merge(df_cat.assign(key=1), on='key').drop('key',axis=1)
+    df_regional.to_pickle('../pickles/nodes/merged_coords_slices/regional_coords_combined_' + str(k) + '.pkl')        
+    del(df_regional)

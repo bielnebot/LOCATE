@@ -7,6 +7,11 @@ Join the dfs with the min distance and the corresponding node coordinates
 """
 
 import pandas as pd
+import os
+
+# creates folder for pickles if it does not exist
+path_pickles = '../pickles/nodes/to_netcdf/'
+os.makedirs(path_pickles, exist_ok=True)
 
 # read the pickles with the coordinates
 df_h = pd.read_pickle('../pickles/nodes/coords/harbour_nodes_coords.pkl')
