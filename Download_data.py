@@ -190,10 +190,62 @@ def Download_opendap_currents(chkdap:str, result0:list, data_path:Path):
     while i < count:
         date = result0[i]
         print ('------------------------------------------------------')
-        file_url = server_url + Prod + date[0:4] + '/' + date[4:6] + '/' + file_pref + result0[i] + file_suf
+        
+        # the file for the last day of the month is kept in the folder for the next month
+        # this affects hindcast data only
+        date = result0[i]
+
+        date_yyyy= date[0:4] # get the year
+        date_mm = date[4:6] # get the month
+        date_dd = date[6:8] # get the day
+
+        if date_mm == '01':
+            if date_dd == '31':
+                date_mm = '02'
+        elif date_mm == '02':
+            if int(date_yyyy) % 4 == 0: # if leap year
+                if date_dd == '28':
+                    date_mm = '03'
+                elif date_dd == '29':
+                    date_mm = '03'
+        elif date_mm == '03':
+            if date_dd == '31':
+                date_mm = '04'
+        elif date_mm == '04':
+            if date_dd == '30':
+                date_mm = '05'
+        elif date_mm == '05':
+            if date_dd == '31':
+                date_mm = '06'
+        elif date_mm == '06':
+            if date_dd == '30':
+                date_mm = '07'
+        elif date_mm == '07':
+            if date_dd == '31':
+                date_mm = '08'
+        elif date_mm == '08':
+            if date_dd == '31':
+                date_mm = '09'
+        elif date_mm == '09':
+            if date_dd == '30':
+                date_mm = '10'
+        elif date_mm == '10':
+            if date_dd == '31':
+                date_mm = '11'
+        elif date_mm == '11':
+            if date_dd == '30':
+                date_mm = '12'
+        elif date_mm == '12':
+            if date_dd == '31':
+                date_mm = '01'
+        
+        
+        file_url = server_url + Prod + date[0:4] + '/' + date_mm + '/' + file_pref + result0[i] + file_suf
+        #file_url = server_url + Prod + date[0:4] + '/' + date[4:6] + '/' + file_pref + result0[i] + file_suf
+                
         # filename to save the data
         file_name = dir / Path(file_pref + result0[i] + file_suf)
-        print (f'Downloading file {i} of {count} ({date[0:4]}/{date[4:6]}) ')
+        print (f'Downloading file {i+1} of {count} ({date[0:4]}/{date_mm}) ')
         print(file_name)
         try:
             urlretrieve(file_url,file_name)
