@@ -49,9 +49,9 @@ cd parcels
 python setup.py install
 ```
 
-### Method 2: Setting up LOCATE for Oceanparcels users
+### Method 2: Setting up LOCATE for Parcels users
 
-If you already are an Oceanparcels user and have installed Oceanparcels following the instructions in https://oceanparcels.org/ or https://github.com/OceanParcels/parcels, we recommend installing Oceanparcels with dependencies using *.yml files.  
+If you already are a Parcels user and have installed Parcels following the instructions in https://oceanparcels.org/ or https://github.com/OceanParcels/parcels, we recommend installing Parcels with dependencies using *.yml files.  
 
 ## Execute
 
