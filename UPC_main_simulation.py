@@ -101,17 +101,24 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
         # Define particle class and variables for nc file
         class PlasticParticle(JITParticle):
             age = Variable('age', dtype=np.float32, initial=0.)
+            
+            # essential variable to parameterise in a kernel the definition of beaching
             beached = Variable('beached', dtype=np.int32, initial=0.)
+            
+            # tags particles which move out of the domain limits (exported)
             out_of_bounds = Variable('out_of_bounds', dtype=np.int32, initial=0.)
             
-            # optional variables depending on which kernels are used
-            # distance_shore = Variable('distance_shore', dtype=np.float32, initial=0.)
+            # calculates the trajectory distance for each particle with a kernel. 
+            # requires prev_lon and prev_lat for the calculation
             # distance_traj = Variable('distance_traj', dtype=np.float32, initial=0.)
-            # the previous longitude
             # prev_lon = Variable('prev_lon', dtype=np.float32, to_write=True, initial=attrgetter('lon'))  
-            # the previous latitude.
-            # prev_lat = Variable('prev_lat', dtype=np.float32, to_write=True, initial=attrgetter('lat'))
-            # tags particles which move out of the domain limits (exported)            
+            # prev_lat = Variable('prev_lat', dtype=np.float32, to_write=True, initial=attrgetter('lat'))                        
+            
+            # used by the beaching distance kernel, as well as the beached variable
+            # distance_shore = Variable('distance_shore', dtype=np.float32, initial=0.)
+            
+            # used by the beaching proximity kernel, as well as the beached variable
+            # proximity = Variable('proximity', dtype=np.float32, initial=0.)  # to calculate time within
             
             # not processed by a kernel, records the original lat and lon through time steps
             # origin_lat = Variable('origin_lat', dtype=np.float32, to_write=True, initial=attrgetter('lat'))
@@ -160,11 +167,17 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
                                              depth=None,
                                              time=creator.time)
     
-        # if using the distance to shore kernel or beaching. Ensure the PlasticParticles variables are activated
-        # kernel = pset.Kernel(AdvectionRK4) + pset.Kernel(DiffusionUniformKh_custom) + pset.Kernel(StokesDrag) + pset.Kernel(beaching_velocity) + pset.Kernel(Ageing) + pset.Kernel(distance_trajectory) + pset.Kernel(distance_shore)
         
         # if using the current velocity kernel for beaching 
-        kernel = pset.Kernel(AdvectionRK4) + pset.Kernel(DiffusionUniformKh_custom) + pset.Kernel(StokesDrag) + pset.Kernel(beaching_velocity) + pset.Kernel(Ageing)
+        kernel = pset.Kernel(AdvectionRK4) + pset.Kernel(DiffusionUniformKh_custom) + pset.Kernel(StokesDrag)  + pset.Kernel(Ageing) + pset.Kernel(beaching_velocity)
+        
+        # if using the distance to shore kernel for beaching
+        # ensure revelant PlasticParticles variables are activated
+        # kernel = pset.Kernel(AdvectionRK4) + pset.Kernel(DiffusionUniformKh_custom) + pset.Kernel(StokesDrag) + pset.Kernel(Ageing) + pset.Kernel(distance_shore) + pset.Kernel(beaching_distance)  
+        
+        # if using the proximity kernel for beaching
+        # ensure revelant PlasticParticles variables are activated
+        # kernel = pset.Kernel(AdvectionRK4) + pset.Kernel(DiffusionUniformKh_custom) + pset.Kernel(StokesDrag) + pset.Kernel(Ageing) + pset.Kernel(distance_shore) + pset.Kernel(beaching_proximity)
         
         output_file = pset.ParticleFile(name=cfg.output_filename, outputdt=timedelta(hours=1))
         sim_dt = cfg.sim_dt

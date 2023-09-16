@@ -154,3 +154,17 @@ def beaching_velocity(particle, fieldset, time):
         else:
             particle.beached = 0 
     
+# distance based on mean velocity of IBI files used for the period 1/2/17 to 19/10/17
+# if particle is > 6 hours at a distance < 1.694 km
+def beaching_proximity(particle, fieldset, time): 
+    if particle.beached == 0:
+        if particle.distance_shore <= 1.694:
+            particle.proximity += particle.dt
+        else:
+            particle.proximity = 0
+        
+        if particle.proximity > 21600:
+            particle.beached = 1
+            particle.delete()
+        else:
+            particle.beached = 0
