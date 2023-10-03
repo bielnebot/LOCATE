@@ -187,7 +187,7 @@ def main(samples_filename, rewrite, sim_init=[], sim_duration=5, sim_dt=5, parti
                      runtime=timedelta(days=sim_duration),
                      dt=timedelta(minutes=sim_dt),
                      output_file=output_file,
-                     recovery={ErrorCode.ErrorOutOfBounds: lib.DeleteParticleFunction},
+                     recovery={ErrorCode.ErrorOutOfBounds: lib.OutOfBounds},
                      verbose_progress=True
                      )
         
