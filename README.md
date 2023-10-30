@@ -1,4 +1,4 @@
-# LOCATE: Save and rescue
+# LOCATE: Search and rescue
 
 **Locate SAR** provides an interface to run lagrangian particle tracking simulations using [OceanParcels](https://oceanparcels.org/).
 
@@ -8,7 +8,10 @@ Results are displayed to help in the decision-making when accidents occur.
 
 ![Particles trajectories generated with LOCATE project](docs/locate_sar_dashboard.png)
 
+* Project: https://upcommons.upc.edu/handle/2117/371788?locale-attribute=en
+
 ## Structure of the root directory
+
 * **`locate_sar.py`**: it is the main file 
 * **/locate_modules**: contains the four main modules of the project
 * **/utils**
